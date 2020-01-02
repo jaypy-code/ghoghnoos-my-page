@@ -1,0 +1,19 @@
+table span{
+    padding: 5px 10px;
+    border-radius: .2rem;
+}
+
+table span.status-1{
+    background-color: #e0f2f1;
+    color: #004d40;
+}
+
+table span.status-2{
+    background-color: #e3f2fd;
+    color: #0d47a1;
+}
+
+table span.status-0{
+    background-color: #ffebee;
+    color: #c62828;
+}

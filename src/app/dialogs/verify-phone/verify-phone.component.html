@@ -1,0 +1,15 @@
+<mat-progress-bar mode="determinate" [value]="value"></mat-progress-bar>
+<div class="flex column">
+    <h3>تایید شماره موبایل</h3>
+    <p>کد تایید 5 رقمی به شماره موبایل {{account.info.phone.number}} ارسال شده است.</p>
+    <mat-form-field appearance="fill">
+        <mat-label>کد تایید</mat-label>
+        <input matInput [(ngModel)]="token" [disabled]="loading" maxlength="5" (keyup.enter)="submit()" autocomplete="off">
+        <mat-hint>مثلا: 12345</mat-hint>
+    </mat-form-field>
+    <div class="flex nowrap">
+        <div class="flex-space"></div>
+        <button mat-button [disabled]="loading" (click)="close()" color="accent">انصراف</button>
+        <button mat-raised-button [disabled]="loading" (click)="submit()" color="accent">تایید</button>
+    </div>
+</div>

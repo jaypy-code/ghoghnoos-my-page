@@ -1,0 +1,9 @@
+<section id="splash" *ngIf="splash == true">
+    <mat-spinner diameter="50"></mat-spinner>
+    <br>
+    <span>لطفا منتظر بمانید ...</span>
+</section>
+<main *ngIf="splash == false">
+    <app-header *ngIf="show"></app-header>
+    <router-outlet></router-outlet>
+</main>

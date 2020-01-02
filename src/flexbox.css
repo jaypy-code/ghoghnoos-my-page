@@ -1,0 +1,34 @@
+.flex {
+    display: flex;
+}
+
+.flex.wrap {
+    flex-wrap: wrap;
+}
+
+.flex.nowrap {
+    flex-wrap: nowrap;
+}
+
+.flex.column {
+    flex-direction: column;
+}
+
+.flex.cai,
+.flex.c-ai {
+    align-items: center;
+}
+
+.flex.eai,
+.flex.e-ai{
+    align-items: flex-end;
+}
+
+.flex.cjc,
+.flex.c-jc {
+    justify-content: center;
+}
+
+.flex-space{
+    flex: 1 1 auto;
+}

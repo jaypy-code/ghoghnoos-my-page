@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="flex column c-jc c-ai" *ngIf="loading" style="margin-top: 10%;">
+        <mat-spinner diameter="40"></mat-spinner>
+        <br>
+        <span>در حال دریافت اطلاعات ...</span>
+    </div>
+    <div class="flex column c-jc c-ai" style="margin-top: 10%;" *ngIf="loading == false && account.info.permission == 'user'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 48 48"><path d="M42 12h-4v18H12v4c0 1.1.9 2 2 2h22l8 8V14c0-1.1-.9-2-2-2zm-8 12V6c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v28l8-8h20c1.1 0 2-.9 2-2z"/></svg>
+        <br>
+        <h3>ایجاد گفتگوی آنلاین</h3>
+        <p style="margin-top: -10px;">با گفتگوی آنلاین سریع تر به پاسخ مشکلات خود می رسید.</p>
+        <br><br>
+        <button mat-raised-button color="accent" (click)="create()" [disabled]="loading">
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+            <span *ngIf="loading == false">ایجاد گفتگوی جدید</span>
+        </button>
+    </div>
+    <table mat-table [dataSource]="data" class="mat-elevation-z1" *ngIf="loading == false && account.info.permission != 'user'">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> نام و نام خانوداگی</th>
+            <td mat-cell *matCellDef="let element"> {{element.user.name.first && element.user.name.last? element.user.name.first +' '+ element.user.name.last:'ثبت نشده'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> آدرس ایمیل </th>
+            <td mat-cell *matCellDef="let element"> {{element.user.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startedAt">
+            <th mat-header-cell *matHeaderCellDef> شروع شده در. </th>
+            <td mat-cell *matCellDef="let element"> {{when(element.createdAt)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="join">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" style="float: left" (click)="join(element._id)" [disabled]="joining">جواب دادن</button> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="column"></tr>
+        <tr mat-row *matRowDef="let row; columns: column;"></tr>
+    </table>
+</div>

@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="flex column c-jc c-ai" *ngIf="connecting" style="margin-top: 10%;">
+        <mat-spinner diameter="40"></mat-spinner>
+        <br>
+        <span>در حال دریافت پیام ها ...</span>
+    </div>
+    <div class="flex nowrap" *ngIf="connecting == false">
+        <div class="info flex column">
+            <button mat-raised-button color="warn" (click)="close()">بستن گفتگو</button>
+        </div>
+        <div class="flex column c-jc c-ai" style="width: 100%;">
+            <div id="messages" class="messages flex column">
+                <div class="message" *ngFor="let item of messages" [ngClass]="{'admin': item.user == false}">
+                    <div class="avatar"></div>
+                    <div class="flex column">
+                        <div class="text">{{item['content']}}</div>
+                        <span>{{when(item['sentAt'])}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="type-input mat-elevation-z1 flex nowrap e-ai c-jc">
+                 <mat-form-field>
+                    <textarea matInput placeholder="متن پیام" [(ngModel)]="message" (keyup.enter)="send()"></textarea>
+                </mat-form-field>
+                <button mat-raised-button color="accent" [disabled]="message.trim().split('').length == 0" (click)="send()">ارسال</button>
+            </div>
+        </div>
+    </div>
+</div>

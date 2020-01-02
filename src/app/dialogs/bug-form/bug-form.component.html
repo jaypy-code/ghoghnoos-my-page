@@ -1,0 +1,28 @@
+<header>
+    <button mat-button (click)="close()">
+        <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"/></svg></mat-icon>
+        <span>بستن (ESC)</span>
+    </button>
+</header>
+<div class="flex column">
+    <h3>گزارش باگ</h3>
+    <p style="margin-top: -10px; ">ثبت گزارش باگ در پروژه های ققنوس</p>
+    <br>
+    <mat-form-field appearance="fill">
+        <mat-label>پروژه</mat-label>
+        <mat-select [(ngModel)]="project">
+          <mat-option *ngFor="let item of projects" [value]="item.id">{{item.name}}</mat-option>
+        </mat-select>
+        <mat-hint>پروژه ای که خطا رخ داده است.</mat-hint>
+     </mat-form-field>
+     <br>
+    <mat-form-field appearance="fill">
+        <mat-label>توضیحات</mat-label>
+        <textarea matInput [(ngModel)]="content" rows="6" [disabled]="loading" autocomplete="off"></textarea>
+        <mat-hint>بنویسید چه کاری انجام دادید که همچین خطایی برای شما رخ داد.</mat-hint>
+    </mat-form-field>
+    <br>
+    <div class="flex nowrap">
+        <button mat-raised-button color="accent" style="margin-right: auto;" [disabled]="loading" (click)="submit()">ثبت گزارش باگ</button>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+div.type-input{
+    position: fixed;
+    bottom: 20px;
+    width: 480px;
+    background-color: #fff;
+    padding: 4px 10px;
+    border-radius: 0.4rem;
+}
+
+div.type-input mat-form-field{
+    margin-left: 10px;
+    width: 400px;
+    max-height: 200px;
+}
+
+textarea{
+    max-height: 160px;
+}
+
+div.type-input button[color="accent"]{
+    position: relative;
+    top: -20px;
+}
+
+div.messages{
+    margin-top: -25px;
+    width: 70%;
+    height: calc(100vh - 250px);
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+div.message{
+    position: relative;
+    width: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 30px;
+}
+
+div.message:first-child{
+    margin-top: 20px;
+}
+
+div.message.admin{
+    margin-right: auto;
+}
+
+div.message:not(.admin) div.avatar{
+    margin-top: -10px;
+    margin-bottom: 10px;
+    background-image: url('/assets/account.png');
+    background-position: center center;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+div.message div.flex.column{
+    width: 100%;
+}
+
+div.message div.text{
+    background-color: #fff;
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+div.message:not(.admin) div.text{
+    width: 100%;
+    border-top-right-radius: 0;
+}
+
+div.message.admin div.text{
+    background-color: #37474f;
+    color: #fff;
+    width: 95%;
+    border-top-left-radius: 0;
+}
+
+div.message span{
+    margin-right: 13px;
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+button[mat-fab]{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}

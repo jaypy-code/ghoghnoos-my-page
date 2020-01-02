@@ -1,0 +1,82 @@
+div.info{
+    background-color: #ffffff;
+    padding: 10px;
+    padding-right: 20px;
+    width: 300px;
+    border-radius: 0.25rem;
+    height: 100%;
+}
+
+div.info button[color="accent"]{
+    width: 100%;
+    margin-right: -10px;
+}
+
+div.info button[color="accent"].full{
+    margin-right: -5px;
+}
+
+div.info button[color="warn"]{
+    width: 100%;
+    margin-right: 10px;
+}
+
+div.messages{
+    width: 100%;
+    padding: 10px;
+}
+
+div.message{
+    position: relative;
+    width: 80%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 30px;
+}
+
+div.message.admin{
+    margin-right: auto;
+}
+
+div.message:not(.admin) div.avatar{
+    margin-top: auto;
+    margin-bottom: 10px;
+    background-image: url('/assets/account.png');
+    background-position: center center;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+div.message div.flex.column{
+    width: 100%;
+}
+
+div.message div.text{
+    background-color: #fff;
+    margin: 0 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 0.4rem;
+}
+
+div.message.admin div.text{
+    background-color: #37474f;
+    color: #fff;
+}
+
+div.message span{
+    margin-right: 13px;
+    margin-top: 4px;
+    font-size: 0.8rem;
+}
+
+div.form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+mat-form-field{
+    width: 100%;
+}

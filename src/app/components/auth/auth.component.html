@@ -1,0 +1,34 @@
+<div class="auth-container flex column">
+    <section class="mat-elevation-z1">
+        <div class="head">
+            <h3>{{mode == 'login'?'ورود به ':'ایجاد '}} حساب کاربری</h3>
+            <span>آدرس ایمیل و رمز عبور خود را وارد کنید.</span>
+        </div>
+        <div class="form flex column">
+            <mat-form-field appearance="fill">
+                <mat-label>آدرس ایمیل</mat-label>
+                <input matInput type="email" [(ngModel)]="email" autocomplete="off" [disabled]="loading">
+                <mat-hint>مانند: mail@example.com</mat-hint>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>رمز عبور</mat-label>
+                <input matInput type="password" [(ngModel)]="password" autocomplete="off" [disabled]="loading">
+            </mat-form-field>
+            <mat-checkbox *ngIf="mode == 'login'" (change)="remember = !remember">مرا به خاطر بسپار</mat-checkbox>
+            <br>
+            <button mat-raised-button color="accent" (click)="submit()" [disabled]="loading">
+                <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+                <span *ngIf="!loading && mode == 'login'">ورود</span>
+                <span *ngIf="!loading && mode == 'register'">ثبت نام</span>
+            </button>
+        </div>
+    </section>
+    <br>
+    <p>
+        <span class="link" routerLink="/account/register" *ngIf="mode == 'login'">ایجاد حساب کاربری جدید</span>
+        <span class="link" routerLink="/account/login" *ngIf="mode == 'register'">ورود به حساب کاربری</span>
+        <span *ngIf="mode == 'login'"> | </span>
+        <span *ngIf="mode == 'login'" class="link" routerLink="/account/forget">فراموشی رمز عبور</span>
+    </p>
+</div>

@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./flexbox.css";
+
+@font-face {
+  font-family: 'Font';
+  src: local('☺'),
+  url('/assets/font.woff') format('woff');
+}
+
+*{
+  user-select: none;
+  font-family: 'Font', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: #f6f7fb;
+}
+
+button mat-icon{
+  margin-left: 10px;
+}
+
+button.add-button{
+  margin-right: auto;
+}
+
+div.container{
+  margin: 0 10%;
+  width: 80%;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-option.en span{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  text-align: left !important;
+  direction: ltr !important;
+}
+
+.grecaptcha-badge{
+  display: none;
+}

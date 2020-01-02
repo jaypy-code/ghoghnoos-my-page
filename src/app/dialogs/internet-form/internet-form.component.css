@@ -1,0 +1,14 @@
+div.flex.column{
+    min-width: 400px;
+    max-height: 70vh;
+}
+
+mat-form-field{
+    margin-bottom: 30px;
+}
+
+input[type='number']{
+    direction: ltr;
+    text-align: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

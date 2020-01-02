@@ -1,0 +1,61 @@
+div.auth-container{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+}
+
+div.head{
+    color: #fff;
+    text-align: center;
+    background-color: rgb(30, 35, 44);
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+div.head span{
+    position: relative;
+    top: -10px;
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+div.form{
+    padding: 20px;
+}
+
+mat-form-field{
+    width: 300px;
+}
+
+input {
+    direction: ltr;
+    text-align: left;
+}
+
+button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+}
+
+span.link{
+    cursor: pointer;
+    color: #000;
+    transition: color 0.2s;
+    outline: none;
+}
+
+span.link:hover{
+    color: #448aff;
+    transition: color 0.2s;
+}

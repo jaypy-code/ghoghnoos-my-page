@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="flex wrap">
+        <button mat-button (click)="close()" [disabled]="loading">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M24 8l-2.83 2.83L32.34 22H8v4h24.34L21.17 37.17 24 40l16-16z"/></svg></mat-icon>
+            <span>بازگشت (ESC)</span>
+        </button>
+    </div>
+    <div class="flex column c-jc c-ai" *ngIf="loading" style="margin-top: 10%;">
+        <mat-spinner diameter="40"></mat-spinner>
+        <br>
+        <span>در حال دریافت اطلاعات ...</span>
+    </div>
+    <div class="flex nowrap" style="margin-top: 30px;" *ngIf="loading == false && info != {}">
+        <div class="flex column info mat-elevation-z3">
+            <h4>{{info['title']}}</h4>
+            <p style="margin-bottom: -5px;">وضعیت تیکت : {{settings['status'][info['status']]}}</p>
+            <p style="margin-bottom: -5px;">زمان ثبت : {{whenCreated(info['createdAt'])}}</p>
+            <p style="margin-bottom: -5px;">اولویت : {{settings['strange'][info['strange']]}}</p>
+            <p>دپارتمان : {{info['department'] || 'انتخاب نشده'}}</p>
+            <br>
+            <div class="flex nowrap">
+                <button mat-raised-button color="accent" [ngClass]="{'full': info['status'] == 0}" (click)="add()">
+                    <mat-icon style="transform: scale(0.8);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M6 34.5V42h7.5l22.13-22.13-7.5-7.5L6 34.5zm35.41-20.41c.78-.78.78-2.05 0-2.83l-4.67-4.67c-.78-.78-2.05-.78-2.83 0l-3.66 3.66 7.5 7.5 3.66-3.66z"/></svg></mat-icon>
+                    <span>نوشتن پیام</span>
+                </button>
+                <button mat-raised-button color="warn" (click)="closeTicket()" *ngIf="info['status'] != 0">بستن تیکت</button>
+            </div>
+        </div>
+        <div class="flex column messages">
+            <div class="message" *ngFor="let item of messages" [ngClass]="{'admin': item['sender']['permission'] != 'user'}">
+                <div class="avatar"></div>
+                <div class="flex column">
+                    <div class="text mat-elevation-z1"><p>{{item['content']}}</p></div>
+                    <span>{{whenCreated(item['sentAt'])}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

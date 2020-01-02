@@ -1,0 +1,20 @@
+mat-progress-bar{
+    position: relative;
+    top: -24px;
+    left: -24px;
+    right: -24px;
+    width: calc(100% + (24px * 2));
+}
+
+p{
+    margin-top: -15px;
+}
+
+mat-form-field{
+    margin-top: 10px;
+}
+
+input{
+    text-align: left;
+    direction: ltr;
+}

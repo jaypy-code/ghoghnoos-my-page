@@ -1,0 +1,52 @@
+<div class="container flex column">
+    <section class="mat-elevation-z2">
+        <div class="flex column buttons">
+            <button *ngIf="index == 1" mat-flat-button color="primary">حساب کاربری</button>
+            <button *ngIf="index != 1" (click)="index = 1" mat-button color="primary">حساب کاربری</button>
+            <button *ngIf="index == 2" mat-flat-button color="primary">رمزعبور</button>
+            <button *ngIf="index != 2" (click)="index = 2" mat-button color="primary">رمزعبور</button>
+        </div>
+        <div class="flex column form" *ngIf="index == 1">
+            <mat-form-field appearance="legacy">
+                <mat-label>نام</mat-label>
+                <input matInput [(ngModel)]="account.info.name.first" autocomplete="off">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+                <mat-label>نام خانوادگی</mat-label>
+                <input matInput [(ngModel)]="account.info.name.last" autocomplete="off">
+            </mat-form-field>
+            <div class="flex wrap">
+                <mat-form-field appearance="legacy">
+                    <mat-label>شماره موبایل</mat-label>
+                    <input class="ltr" matInput type="tel" [(ngModel)]="account.info.phone.number" placeholder="09" autocomplete="off">
+                    <mat-hint *ngIf="account.info.phone.verified == false && account.info.phone.number && account.info.phone.number.length == 11">این شماره موبایل تایید نشده است.</mat-hint>
+                </mat-form-field>
+                <button mat-raised-button color="warn" *ngIf="account.info.phone.verified == false && account.info.phone.number && account.info.phone.number.length == 11" [disabled]="loading" (click)="verifyPhone()">تایید</button>
+                <span class="verified" *ngIf="account.info.phone.verified == true">تایید شده</span>
+            </div>
+            <br>
+            <div class="flex wrap">
+                <mat-form-field appearance="legacy">
+                    <mat-label>آدرس ایمیل</mat-label>
+                    <input class="ltr" matInput [(ngModel)]="account.info.email.address" disabled>
+                    <mat-hint *ngIf="account.info.email.verified == false">این ایمیل تایید نشده است.</mat-hint>
+                </mat-form-field>
+                <button mat-raised-button color="warn" *ngIf="account.info.email.verified == false" [disabled]="verifing" (click)="verify()">تایید</button>
+                <span class="verified" *ngIf="account.info.email.verified == true">تایید شده</span>
+            </div>
+            <button mat-raised-button color="accent" (click)="edit()" [disabled]="loading">ویرایش</button>
+        </div>
+        <div class="flex column form" *ngIf="index == 2">
+            <mat-form-field appearance="legacy">
+                <mat-label>رمز عبور جدید</mat-label>
+                <input matInput class="password" [type]="type" [(ngModel)]="password.new" autocomplete="off">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+                <mat-label>تکرار رمز عبور جدید</mat-label>
+                <input matInput class="password" [type]="type" [(ngModel)]="password.try" autocomplete="off">
+            </mat-form-field>
+            <mat-checkbox (change)="type == 'password'?type='text':type='password'">نمایش رمز عبور</mat-checkbox>
+            <button mat-raised-button color="accent" (click)="change()" [disabled]="loading">تغییر رمزعبور</button>
+        </div>
+    </section>
+</div>
