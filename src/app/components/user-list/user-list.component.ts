@@ -27,10 +27,10 @@ export class UserListComponent implements OnInit {
 
   fetch(){
     this.loading = true;
-    this.http.grapql('main', `{ users { id name { first last } email permission verified } }`, true)
+    this.http.grapql('main', `{ users { id name { first last } email { address } permission verified } }`, true)
     .then((res:any)=>{
       this.loading = false;
-      this.data = res['data']['users'];
+      this.data = res['data']['users'];      
     }).catch(()=>{
       this.loading = false;
       this.snackbar.open('خطا با ارتباط با سرور', 'باشه', { direction: 'rtl', duration: 4000 });

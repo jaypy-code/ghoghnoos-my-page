@@ -14,8 +14,8 @@ import { Socket } from '../../services/socket/socket.service';
 export class AuthComponent implements OnInit {
   public loading: Boolean = false;
 
-  public email: String = '';
-  public password: String = '';
+  public email: string = '';
+  public password: string = '';
   public remember: boolean = false;
   public mode: string;
   constructor(private snackbar: MatSnackBar, private account: Account, private http: Http, private socket: Socket, private router: Router, private recaptchaV3Service: ReCaptchaV3Service) { }
@@ -34,11 +34,13 @@ export class AuthComponent implements OnInit {
         this.snackbar.open('ریکپتاچا تایید نشده است.', 'باشه', { direction: 'rtl', duration: 4000 });
       } else if(!email || email.length == 0){
         this.snackbar.open('آدرس ایمیل را وارد کنید.', 'باشه', { direction: 'rtl', duration: 4000 });
+      } else if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) == false) {
+        this.snackbar.open('آدرس ایمیل را صحیح وارد کنید.', 'باشه', { direction: 'rtl', duration: 4000 });
       } else if(!password || password.length == 0){
         this.snackbar.open('رمز عبور را وارد کنید.', 'باشه', { direction: 'rtl', duration: 4000 });
       } else {
         this.loading = true;
-        this.http.request('main', `/account/${this.mode}`, 'POST', { email, password }, false)
+        this.http.request('main', `/account/${this.mode}`, 'POST', { email, password, captcha: token }, false)
         .then((res:any)=>{
           this.loading = false;
           this.snackbar.open(res['message'], 'باشه', { direction: 'rtl', duration: 4000 });
