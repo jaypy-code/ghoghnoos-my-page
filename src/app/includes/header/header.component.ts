@@ -9,14 +9,9 @@ import { Account } from '../../services/account/account.service';
 })
 export class HeaderComponent implements OnInit {
 
-  public path: string = '';
   constructor(public account: Account, private router: Router) { }
 
   ngOnInit() {
-    this.path = window.location.pathname;      
-    this.router.events.subscribe(()=>{
-      this.path = window.location.pathname;      
-    });
   }
   logout(){
     this.account.logout();

@@ -18,6 +18,7 @@ import {
   MatCardModule,
   MatSortModule,
   MatProgressBarModule,
+  MatSidenavModule,
 } from '@angular/material';
 
 
@@ -39,6 +40,7 @@ const modules = [
   MatCardModule,
   MatSortModule,
   MatProgressBarModule,
+  MatSidenavModule,
 ];
 @NgModule({
   imports: modules,

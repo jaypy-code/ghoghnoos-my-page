@@ -12,10 +12,16 @@ import { Socket } from './services/socket/socket.service';
 export class AppComponent implements OnInit {
   public splash: Boolean = true;
   public show: Boolean = false;
+  public open: boolean = true;
+  public path: string = '';
   constructor(public account: Account, private http: Http, private socket: Socket, private router: Router) {}
   ngOnInit() {
     this.doShow();
-    this.router.events.subscribe(()=> { this.doShow() });
+    this.path = window.location.pathname;
+    this.router.events.subscribe(()=> { 
+      this.doShow();
+      this.path = window.location.pathname;      
+    });
 
     this.account.load()
     .then(async ()=>{
