@@ -1,0 +1,31 @@
+<div class="content flex column">
+    <div class="flex nowrap c-ai" style="margin-top: -20px; margin-right: -10px; width: calc(100% + 20px);">
+        <h4>افزایش موجودی</h4>
+        <div class="flex-space"></div>
+        <button mat-button (click)="close()">
+            <span>بستن (ESC)</span>
+        </button>
+    </div>
+    <div class="flex nowrap">
+        <span>موجودی شما : </span><div class="flex-space"></div><span>{{ToRial(account.info.amount || 0)}} تومان</span>
+    </div>
+    <br>
+    <div class="flex wrap c-ai c-jc">
+        <button *ngFor="let item of amounts" mat-stroked-button color="accent" (click)="amount = item">{{ToRial(item)}} تومان</button>
+    </div>
+    <br>
+    <div class="flex nowrap c-ai c-jc">
+        <button mat-icon-button (click)="minesAmount()">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M38 26H10v-4h28v4z"/></svg></mat-icon>
+        </button>
+        <input type="text" placeholder="مبالغ دیگر" [ngModel]="ToRial(amount)" (ngModel)="amount" (keydown)="keyInput($event)">
+        <button mat-icon-button (click)="addAmount()">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M38 26H26v12h-4V26H10v-4h12V10h4v12h12v4z"/></svg></mat-icon>
+        </button>
+    </div>
+    <br>
+    <button mat-raised-button color="accent" [disabled]="loading" (click)="submit()">
+        <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+        <span *ngIf="loading == false">پرداخت</span>
+    </button>
+</div>

@@ -53,3 +53,7 @@ input.ltr{
     direction: ltr;
     text-align: left;
 }
+
+h4{
+    margin: 0;
+}

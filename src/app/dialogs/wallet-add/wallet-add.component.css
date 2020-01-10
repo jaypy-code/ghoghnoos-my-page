@@ -1,0 +1,21 @@
+div.content{
+    width: 330px;
+}
+
+button[mat-stroked-button]{
+    margin: 5px;
+}
+
+button[mat-raised-button]{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+}
+
+input{
+    text-align: center;
+    margin: 0 10px;
+    outline: none;
+    border: none;
+}

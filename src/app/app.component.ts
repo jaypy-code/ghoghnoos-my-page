@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
         try {
           this.socket.connect();
           let res = await this.http.request('main', '/account/me', 'GET', {}, true);          
-          if(res['status'] == true && res['data'] != null){
+          if(res['status'] == true && res['data'] != null){            
             this.show = true;
             this.account.info = res['data'];
           } else {

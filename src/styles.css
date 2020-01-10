@@ -44,3 +44,8 @@ mat-option.en span{
 .grecaptcha-badge{
   display: none;
 }
+
+.mat-icon svg{
+  position: relative;
+  right: 5px;
+}

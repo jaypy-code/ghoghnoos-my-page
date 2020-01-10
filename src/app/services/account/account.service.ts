@@ -4,6 +4,7 @@ import * as crypto from 'crypto-js';
 let password = 'q*=SP8g%}R/$a3/(';
 
 interface Info{
+  photo: string,
   name: {
     first: string,
     last: string
@@ -17,7 +18,8 @@ interface Info{
     verified: boolean
   },
   verified: boolean,
-  permission: string
+  permission: string,
+  amount: number
 }
 
 interface Auth{
@@ -35,6 +37,7 @@ export class Account {
     'refresh_token': null
   };
   public info: Info = {
+    'photo': null,
     'name': {
       'first': '',
       'last': ''
@@ -48,7 +51,8 @@ export class Account {
       'verified': false
     },
     'verified': false,
-    'permission': 'user'
+    'permission': 'user',
+    'amount': 0
   };
   public login: Boolean = false;
   constructor() { }
@@ -89,6 +93,7 @@ export class Account {
   }
   logout(){
     this.info = {
+      'photo': null,
       'name':  {
         'first': '',
         'last': ''
@@ -102,7 +107,8 @@ export class Account {
         'verified': false
       },
       'verified': false,
-      'permission': 'user'
+      'permission': 'user',
+      'amount': 0
     };
     this.auth = {
       'access_token': null,

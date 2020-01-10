@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Account } from '../../services/account/account.service';
@@ -21,7 +21,7 @@ audio.autoplay = true;
   templateUrl: './call.component.html',
   styleUrls: ['./call.component.css']
 })
-export class CallComponent implements OnInit {
+export class CallComponent implements OnInit, OnDestroy {
 
   public loading: boolean = false;
   public calling: boolean = false;
@@ -33,12 +33,18 @@ export class CallComponent implements OnInit {
   constructor(public account: Account, private socket: Socket, private snackbar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
-    this.getPermission().then(()=>{
+    this.getPermission()
+    .then(()=>{      
       peerConnection = new RTCPeerConnection(peerConnectionConfig);
       peerConnection.ontrack = this.onGetStream;
       peerConnection.addStream(this.stream);
+      this.eventHandler();
     })
-    this.eventHandler();
+  }
+
+  ngOnDestroy(){
+    this.kill();
+    
   }
 
   eventHandler(){
@@ -121,10 +127,15 @@ export class CallComponent implements OnInit {
     this.answering = false;
     this.allowd = true;
     this.sdp = null;
-    this.stream = null;
     audio.pause();
     music.pause();
-    document.getElementById('header').style.display = 'block';
+    document.getElementById('header').style.display = 'block';        
+    if(this.stream){
+      this.stream.getTracks().forEach(track=> {
+        track.stop();
+      });
+      this.stream = null;
+    }
   }
 
   onGetStream(event){

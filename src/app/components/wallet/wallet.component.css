@@ -1,0 +1,38 @@
+mat-card{
+    margin-top: 30px;
+    padding: 0;
+}
+
+h4{
+    margin: 0;
+}
+
+b{
+    margin: 0 5px;
+}
+
+table{
+    width: 100%;
+    margin-top: 10px;
+}
+
+table svg{
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+}
+
+table span{
+    padding: 3px 10px;
+    border-radius: 0.3rem;
+}
+
+table span.true{
+    color: #00c853;
+    background-color: #00c8532d;
+}
+
+table span.false{
+    color: #d50000;
+    background-color: #d500002d;
+}
