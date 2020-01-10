@@ -32,6 +32,7 @@ export class CallComponent implements OnInit, OnDestroy {
   public answering: boolean = false;
   private stream: any = null;
   private id: string  = null;
+  public callers: object[] = [];
   constructor(public account: Account, private socket: Socket, private snackbar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
@@ -55,8 +56,7 @@ export class CallComponent implements OnInit, OnDestroy {
     });
 
     this.socket.socket.on('on-new-call', data=>{      
-      this.id = data['id'];
-      this.answer(data, true);      
+      this.callers.push(data);    
     });
     this.socket.socket.on('on-join-anwer', data=>{            
       music.pause();
@@ -121,6 +121,7 @@ export class CallComponent implements OnInit, OnDestroy {
 
   answer(signal={ id: '', ice, sdp }, answer=true){
     this.answering = true;
+    this.id = signal.id;
     if(answer == false){ // User
       peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp))
       peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice))

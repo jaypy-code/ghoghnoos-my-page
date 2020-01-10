@@ -87,4 +87,8 @@ export class TicketListsComponent implements OnInit, OnDestroy {
       this.router.navigate([`/tickets/${id}`])
     }
   }
+
+  toInt(str=''){
+    return parseInt(str);
+  }
 }
