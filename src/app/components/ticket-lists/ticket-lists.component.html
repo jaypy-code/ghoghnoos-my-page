@@ -59,7 +59,7 @@
 
             <ng-container matColumnDef="ago">
                 <th mat-header-cell *matHeaderCellDef style="width: 120px;">  زمان ثبت </th>
-                <td mat-cell *matCellDef="let element" style="width: 120px;"> {{whenCreated(element.createdAt)}} </td>
+                <td mat-cell *matCellDef="let element" style="width: 120px;"> {{functions.when(element.createdAt)}} </td>
             </ng-container>
           
             <ng-container matColumnDef="strange">

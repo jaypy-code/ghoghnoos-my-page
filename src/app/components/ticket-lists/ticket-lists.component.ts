@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from '../../services/account/account.service';
 import { Http } from '../../services/http/http.service';
+import { Functions } from '../../services/functions/functions.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TicketAddComponent } from '../../dialogs/ticket-add/ticket-add.component';
 import settings from '../../../database/ticket';
@@ -20,14 +21,16 @@ export class TicketListsComponent implements OnInit, OnDestroy {
   public strange: number = -1;
   public department: string = 'null';
   public settings = settings;
-  constructor(public account: Account, private http: Http, private dialog: MatDialog, private router: Router) { }
+  constructor(public account: Account, private http: Http, public functions: Functions, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.fetch();
-    document.onkeydown = (event)=> {
-      if(event.keyCode == 116){
-        event.preventDefault();
-        this.fetch()
+    if(this.account.info.permission != 'user'){
+      document.onkeydown = (event)=> {
+        if(event.keyCode == 116){
+          event.preventDefault();
+          this.fetch()
+        }
       }
     }
   }
@@ -36,23 +39,6 @@ export class TicketListsComponent implements OnInit, OnDestroy {
     document.onkeydown = null;
   }
 
-  whenCreated(at) {
-    if(at == null) return "بدون زمان";
-    let date = new Date(parseInt(at));
-    let now = new Date();
-
-    if ((now.getFullYear() - date.getFullYear()) != 0) {
-      return (now.getFullYear() - date.getFullYear()) + " سال پیش";
-    } else if (((now.getMonth() + 1) - (date.getMonth() + 1)) != 0) {
-      return ((now.getMonth() + 1) - (date.getMonth() + 1)) + " ماه پیش";
-    } else if (((now.getDate() + 1) - (date.getDate() + 1)) != 0) {
-      return (now.getDate() + 1) - (date.getDate() + 1) + " روز پیش";
-    } else if ((now.getHours() - date.getHours()) != 0) {
-      return (now.getHours() - date.getHours()) + " ساعت پیش";
-    } else {
-      return "چند لحظه پیش"
-    }
-  }
 
   fetch(){
     this.loading = true;

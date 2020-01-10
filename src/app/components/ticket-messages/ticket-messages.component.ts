@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatBottomSheet, MatDialog, MatSnackBar } from '@angular/material';
 import { Http } from '../../services/http/http.service';
 import { Account } from '../../services/account/account.service';
+import { Functions } from '../../services/functions/functions.service';
 import { MessageAddComponent} from '../../dialogs/message-add/message-add.component';
 import { ConfirmComponent } from '../../dialogs/confirm/confirm.component';
 import settings from '../../../database/ticket';
@@ -20,7 +21,7 @@ export class TicketMessagesComponent implements OnInit, OnDestroy {
   public loading: boolean = true;
   public id: string = null;
   public settings = settings;
-  constructor(public account: Account, private http: Http, private activeRoute: ActivatedRoute, private router: Router, private buttonSheet: MatBottomSheet, private dialog: MatDialog, private snackbar: MatSnackBar) { }
+  constructor(public account: Account, private http: Http, public functions: Functions, private activeRoute: ActivatedRoute, private router: Router, private buttonSheet: MatBottomSheet, private dialog: MatDialog, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     document.onkeyup = (event)=>{
@@ -46,24 +47,6 @@ export class TicketMessagesComponent implements OnInit, OnDestroy {
           return 'پاسخ داده شده';
       default:
         break;
-    }
-  }
-
-  whenCreated(at) {
-    if(at == null) return "بدون زمان";
-    let date = new Date(at);
-    let now = new Date();
-
-    if ((now.getFullYear() - date.getFullYear()) != 0) {
-      return (now.getFullYear() - date.getFullYear()) + " سال پیش";
-    } else if (((now.getMonth() + 1) - (date.getMonth() + 1)) != 0) {
-      return ((now.getMonth() + 1) - (date.getMonth() + 1)) + " ماه پیش";
-    } else if (((now.getDate() + 1) - (date.getDate() + 1)) != 0) {
-      return (now.getDate() + 1) - (date.getDate() + 1) + " روز پیش";
-    } else if ((now.getHours() - date.getHours()) != 0) {
-      return (now.getHours() - date.getHours()) + " ساعت پیش";
-    } else {
-      return "چند لحظه پیش"
     }
   }
 

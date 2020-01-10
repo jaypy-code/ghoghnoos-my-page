@@ -14,7 +14,7 @@
         <div class="flex column info mat-elevation-z3">
             <h4>{{info['title']}}</h4>
             <p style="margin-bottom: -5px;">وضعیت تیکت : {{settings['status'][info['status']]}}</p>
-            <p style="margin-bottom: -5px;">زمان ثبت : {{whenCreated(info['createdAt'])}}</p>
+            <p style="margin-bottom: -5px;">زمان ثبت : {{functions.when(info['createdAt'])}}</p>
             <p style="margin-bottom: -5px;">اولویت : {{settings['strange'][info['strange']]}}</p>
             <p>دپارتمان : {{info['department'] || 'انتخاب نشده'}}</p>
             <br>
@@ -31,7 +31,7 @@
                 <div class="avatar"></div>
                 <div class="flex column">
                     <div class="text mat-elevation-z1"><p>{{item['content']}}</p></div>
-                    <span>{{whenCreated(item['sentAt'])}}</span>
+                    <span>{{functions.when(item['sentAt'])}}</span>
                 </div>
             </div>
         </div>

@@ -14,6 +14,9 @@ let peerConnection;
 let audio = new Audio(),
   music = new Audio('/assets/calling.mp3');
 
+let sdp = null,
+  ice = null;
+
 audio.autoplay = true;
 
 @Component({
@@ -27,7 +30,6 @@ export class CallComponent implements OnInit, OnDestroy {
   public calling: boolean = false;
   public allowd: boolean = true;
   public answering: boolean = false;
-  private sdp: any = null;
   private stream: any = null;
   private id: string  = null;
   constructor(public account: Account, private socket: Socket, private snackbar: MatSnackBar, private router: Router) { }
@@ -37,6 +39,7 @@ export class CallComponent implements OnInit, OnDestroy {
     .then(()=>{      
       peerConnection = new RTCPeerConnection(peerConnectionConfig);
       peerConnection.ontrack = this.onGetStream;
+      peerConnection.onicecandidate = this.createICE;
       peerConnection.addStream(this.stream);
       this.eventHandler();
     })
@@ -44,7 +47,6 @@ export class CallComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.kill();
-    
   }
 
   eventHandler(){
@@ -52,18 +54,16 @@ export class CallComponent implements OnInit, OnDestroy {
       this.kill();
     });
 
-    this.socket.socket.on('on-new-call', data=>{
+    this.socket.socket.on('on-new-call', data=>{      
       this.id = data['id'];
-      peerConnection.setRemoteDescription(new RTCSessionDescription(data['sdp']))
-      .then(function() {
-          return peerConnection.createAnswer()
-      }).then(data=> this.getAnswerSDP(data));
+      this.answer(data, true);      
     });
-    this.socket.socket.on('on-join-anwer', data=>{
+    this.socket.socket.on('on-join-anwer', data=>{            
       music.pause();
-      this.answering = true;
-      peerConnection.setRemoteDescription(new RTCSessionDescription(data));
+      this.answer(data, false);
     });
+
+    this.socket.socket.on('on-join-call', console.log);
   }
 
   getPermission(){
@@ -86,47 +86,24 @@ export class CallComponent implements OnInit, OnDestroy {
     })
   }
 
-  getCallSDP(){
-    return new Promise((resolve, reject)=>{
-      peerConnection.createOffer()
-      .then(description=>{
-        return peerConnection.setLocalDescription(description);
-      })
-      .then(()=>{
-        this.sdp = peerConnection.localDescription;
-        resolve();
-      })
-      .catch(reject);
-    })
-  }
-
-  getAnswerSDP(description){
-    peerConnection.setLocalDescription(description).then(()=> {
-      this.sdp = peerConnection.localDescription;
-      this.socket.socket.emit('join-call', { id: this.id, sdp: peerConnection.localDescription });
-      document.getElementById('header').style.display = 'none';
-      this.answering = true;
-    });
-  }
-
-  async create(){
-    try {
-      await this.getCallSDP();
-      this.calling = true;
-      document.getElementById('header').style.display = 'none';
-      this.socket.socket.emit('new-call', { sdp: this.sdp });
-      this.soundCall();
-    } catch (error) {
-      
+  createICE(event){
+    if(event.candidate != null) {
+      ice = event.candidate;
     }
   }
 
+  async createSDP(description){
+    await peerConnection.setLocalDescription(description);
+    sdp = peerConnection.localDescription;
+  }
+  
   kill(){
     this.loading = false;
     this.calling = false;
     this.answering = false;
     this.allowd = true;
-    this.sdp = null;
+    sdp = null;
+    ice = null;
     audio.pause();
     music.pause();
     document.getElementById('header').style.display = 'block';        
@@ -140,6 +117,40 @@ export class CallComponent implements OnInit, OnDestroy {
 
   onGetStream(event){
     audio.srcObject = event.streams[0];
+  }
+
+  answer(signal={ id: '', ice, sdp }, answer=true){
+    this.answering = true;
+    if(answer == false){ // User
+      peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp))
+      peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice))
+    } else { // Admin
+      document.getElementById('header').style.display = 'none';        
+      peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp))
+      .then(()=>
+         peerConnection.createAnswer()
+      )
+      .then(this.createSDP)
+      .then(()=>
+        peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice))
+      )
+      .then(()=>{
+        setTimeout(() => {        
+          this.socket.socket.emit('join-call', { id: signal.id, ice, sdp });
+        }, 3000);
+      })
+      .catch(console.log);
+    }
+  }
+
+  create(){
+    this.calling = true;
+    this.soundCall();
+    document.getElementById('header').style.display = 'none';        
+    peerConnection.createOffer().then(this.createSDP);
+    setTimeout(() => {
+      this.socket.socket.emit('new-call', { ice, sdp });
+    }, 3000);
   }
 
   soundCall(){

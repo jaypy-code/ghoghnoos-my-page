@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Account } from '../../services/account/account.service';
 import { Socket } from '../../services/socket/socket.service';
+import { Functions } from '../../services/functions/functions.service';
 
 @Component({
   selector: 'app-chat-user',
@@ -15,7 +16,7 @@ export class ChatUserComponent implements OnInit {
   public data = [];
   public column: string[] = ['name', 'email', 'startedAt', 'join'];
 
-  constructor(public account: Account, private socket: Socket, private snackbar: MatSnackBar, private router: Router) { }
+  constructor(public account: Account, private socket: Socket, public functions: Functions, private snackbar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
     this.loading = true;
@@ -54,24 +55,6 @@ export class ChatUserComponent implements OnInit {
   create(){
     this.loading = true;
     this.socket.socket.emit('new-room');
-  }
-
-  when(at) {
-    if(at == null) return "بدون زمان";
-    let date = new Date(at);
-    let now = new Date();
-
-    if ((now.getFullYear() - date.getFullYear()) != 0) {
-      return (now.getFullYear() - date.getFullYear()) + " سال پیش";
-    } else if (((now.getMonth() + 1) - (date.getMonth() + 1)) != 0) {
-      return ((now.getMonth() + 1) - (date.getMonth() + 1)) + " ماه پیش";
-    } else if (((now.getDate() + 1) - (date.getDate() + 1)) != 0) {
-      return (now.getDate() + 1) - (date.getDate() + 1) + " روز پیش";
-    } else if ((now.getHours() - date.getHours()) != 0) {
-      return (now.getHours() - date.getHours()) + " ساعت پیش";
-    } else {
-      return "چند لحظه پیش"
-    }
   }
   
   join(id=''){

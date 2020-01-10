@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatBottomSheet, MatSnackBar } from '@angular/material';
 import { ConfirmComponent } from '../../dialogs/confirm/confirm.component';
 import { Socket } from '../../services/socket/socket.service';
-
+import { Functions } from '../../services/functions/functions.service';
 
 @Component({
   selector: 'app-chat-to',
@@ -17,7 +17,7 @@ export class ChatToComponent implements OnInit {
   public messages: object[] = [];
   public message: string = '';
 
-  constructor(private socket: Socket, private activatedRoute: ActivatedRoute, private router: Router, private buttonSheet: MatBottomSheet, private snackbar: MatSnackBar) { }
+  constructor(private socket: Socket, public functions: Functions, private activatedRoute: ActivatedRoute, private router: Router, private buttonSheet: MatBottomSheet, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.connecting = true;
@@ -63,24 +63,6 @@ export class ChatToComponent implements OnInit {
       let div = document.getElementById('messages');
       div.scrollTop = div.scrollHeight;
     }, 10);
-  }
-
-  when(at) {
-    if(at == null) return "بدون زمان";
-    let date = new Date(at);
-    let now = new Date();
-
-    if ((now.getFullYear() - date.getFullYear()) != 0) {
-      return (now.getFullYear() - date.getFullYear()) + " سال پیش";
-    } else if (((now.getMonth() + 1) - (date.getMonth() + 1)) != 0) {
-      return ((now.getMonth() + 1) - (date.getMonth() + 1)) + " ماه پیش";
-    } else if (((now.getDate() + 1) - (date.getDate() + 1)) != 0) {
-      return (now.getDate() + 1) - (date.getDate() + 1) + " روز پیش";
-    } else if ((now.getHours() - date.getHours()) != 0) {
-      return (now.getHours() - date.getHours()) + " ساعت پیش";
-    } else {
-      return "چند لحظه پیش"
-    }
   }
 
   close(){

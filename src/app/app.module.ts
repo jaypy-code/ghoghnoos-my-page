@@ -34,6 +34,8 @@ import { BugFormComponent } from './dialogs/bug-form/bug-form.component';
 import { BugInfoComponent } from './dialogs/bug-info/bug-info.component';
 import { VerifyPhoneComponent } from './dialogs/verify-phone/verify-phone.component';
 import { WalletAddComponent } from './dialogs/wallet-add/wallet-add.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { WalletAddComponent } from './dialogs/wallet-add/wallet-add.component';
       { path: 'account/profile/wallet', component: WalletComponent, canActivate: [LoggedinGuard] },
       { path: '**', redirectTo: '/account/login' }
     ]),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6Lc0V8oUAAAAAFy10s-Ubp106Fp40tijOxZnViug' },
