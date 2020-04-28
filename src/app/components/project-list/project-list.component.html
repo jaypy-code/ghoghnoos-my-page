@@ -1,0 +1,33 @@
+<div class="container">
+    <button class="add-button" mat-raised-button color="accent" [disabled]="loading" (click)="add()">
+        <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path d="M38 26H26v12h-4V26H10v-4h12V10h4v12h12v4z" /></svg></mat-icon>
+        <span>پروژه جدید</span>
+    </button>
+    <div class="flex column" *ngIf="loading == false && data.length == 0">
+        <br><br>
+        <p>
+            شما تا الان هیچ پروژه ای ثبت نکرده اید. <br>
+            با کلیک بر روی دکمه ی <u style="cursor: pointer; color: #448aff;" (click)="add()">پروژه جدید</u> ، یک پروژه
+            جدید بسازید.
+        </p>
+    </div>
+    <br>
+    <div class="flex column c-jc c-ai" *ngIf="loading" style="margin-top: 10%;">
+        <mat-spinner diameter="40"></mat-spinner>
+        <br>
+        <span>در حال دریافت اطلاعات ...</span>
+    </div>
+    <div class="flex wrap">
+        <mat-card *ngFor="let item of data">
+            <h3>{{item['name']}}</h3>
+            <p>{{item['details']}}</p>
+            <br>
+            <div class="flex nowrap c-ai c-jc">
+                <button mat-flat-button color="accent" (click)="goTo(item['url'])">نمایش {{item['category']}}</button>
+                <button mat-button color="primary" (click)="openForm(item)">ویرایش</button>
+                <button mat-button color="warn" (click)="delete(item.id)">حذف</button>
+            </div>
+        </mat-card>
+    </div>
+</div>

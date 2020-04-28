@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="flex wrap">
+        <button mat-button (click)="close()" [disabled]="loading">
+            <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                    <path d="M24 8l-2.83 2.83L32.34 22H8v4h24.34L21.17 37.17 24 40l16-16z" /></svg></mat-icon>
+            <span>بازگشت (ESC)</span>
+        </button>
+        <button class="add-button" mat-raised-button color="accent" [disabled]="loading" (click)="submit()">
+            <span>ثبت نوشته</span>
+        </button>
+    </div>
+    <div class="flex column c-jc c-ai" *ngIf="loading" style="margin-top: 10%;">
+        <mat-spinner diameter="40"></mat-spinner>
+        <br>
+        <span>در حال دریافت اطلاعات ...</span>
+    </div>
+
+    <div class="form flex column" *ngIf="!loading">
+        <div class="flex wrap">
+            <mat-form-field appearance="fill">
+                <mat-label>عنوان نوشته</mat-label>
+                <input matInput [(ngModel)]="title" [disabled]="loading" autocomplete="off">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>آدرس تصویر</mat-label>
+                <input matInput type="url" [(ngModel)]="photo" [disabled]="loading" autocomplete="off">
+                <mat-hint>آدرس تصویر آپلود شده را وارد کنید.</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>برجسب ها نوشته</mat-label>
+                <input matInput [(ngModel)]="tags" [disabled]="loading" autocomplete="off">
+                <mat-hint>برجسب ها را با - از هم جدا کنید.</mat-hint>
+            </mat-form-field>
+        </div>
+        <br>
+        <ck-editor name="content" [(ngModel)]="content" skin="moono-lisa" language="fa"></ck-editor>
+    </div>
+</div>

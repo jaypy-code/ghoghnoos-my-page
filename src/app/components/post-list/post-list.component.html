@@ -1,0 +1,42 @@
+<div class="container">
+    <button class="add-button" mat-raised-button color="accent" [disabled]="loading" (click)="add()">
+        <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path d="M38 26H26v12h-4V26H10v-4h12V10h4v12h12v4z" /></svg></mat-icon>
+        <span>نوشته جدید</span>
+    </button>
+    <div class="flex column" *ngIf="loading == false && data.length == 0">
+        <br><br>
+        <p>
+            شما تا الان هیچ نوشته ی ثبت نکرده اید. <br>
+            با کلیک بر روی دکمه ی <u style="cursor: pointer; color: #448aff;" (click)="add()">نوشته جدید</u> ، یک نوشته
+            جدید بسازید.
+        </p>
+    </div>
+    <br>
+    <div class="flex column c-jc c-ai" *ngIf="loading" style="margin-top: 10%;">
+        <mat-spinner diameter="40"></mat-spinner>
+        <br>
+        <span>در حال دریافت اطلاعات ...</span>
+    </div>
+    <table mat-table *ngIf="loading == false && data.length != 0" [dataSource]="data" class="mat-elevation-z2">
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> عنوان نوشته </th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef style="width: 50px"></th>
+            <td mat-cell *matCellDef="let element" style="width: 50px"> <button mat-button color="primary"
+                    (click)="edit(element.id)">ویرایش</button> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef style="width: 50px"></th>
+            <td mat-cell *matCellDef="let element" style="width: 50px"> <button mat-button color="warn"
+                    (click)="delete(element.id)">حذف</button> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+</div>

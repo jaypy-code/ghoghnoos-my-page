@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule  } from './material';
+import { MaterialModule } from './material';
 import { CKEditorModule } from 'ngx-ckeditor'; // Content editor
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 
@@ -22,6 +24,12 @@ import { ChatUserComponent } from './components/chat-user/chat-user.component';
 import { ChatToComponent } from './components/chat-to/chat-to.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CallComponent } from './components/call/call.component';
+import { FaqListComponent } from './components/faq-list/faq-list.component';
+import { ProjectListComponent } from './components/project-list/project-list.component';
+import { InternetListComponent } from './components/internet-list/internet-list.component';
+import { PostListComponent } from './components/post-list/post-list.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 // Includes
 import { HeaderComponent } from './includes/header/header.component';
@@ -34,8 +42,10 @@ import { BugFormComponent } from './dialogs/bug-form/bug-form.component';
 import { BugInfoComponent } from './dialogs/bug-info/bug-info.component';
 import { VerifyPhoneComponent } from './dialogs/verify-phone/verify-phone.component';
 import { WalletAddComponent } from './dialogs/wallet-add/wallet-add.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { FaqFormComponent } from './dialogs/faq-form/faq-form.component';
+import { ProjectFormComponent } from './dialogs/project-form/project-form.component';
+import { InternetFormComponent } from './dialogs/internet-form/internet-form.component';
+import { UserFormComponent } from './dialogs/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +68,16 @@ import { environment } from '../environments/environment';
     CallComponent,
     WalletComponent,
     WalletAddComponent,
+    FaqFormComponent,
+    ProjectFormComponent,
+    InternetFormComponent,
+    UserFormComponent,
+    FaqListComponent,
+    ProjectListComponent,
+    InternetListComponent,
+    PostListComponent,
+    PostFormComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,6 +97,13 @@ import { environment } from '../environments/environment';
       { path: 'chat/:id', component: ChatToComponent, canActivate: [LoggedinGuard] },
       { path: 'call', component: CallComponent, canActivate: [LoggedinGuard] },
       { path: 'account/profile/wallet', component: WalletComponent, canActivate: [LoggedinGuard] },
+      { path: 'faq', component: FaqListComponent, canActivate: [LoggedinGuard] },
+      { path: 'project', component: ProjectListComponent, canActivate: [LoggedinGuard] },
+      { path: 'internet', component: InternetListComponent, canActivate: [LoggedinGuard] },
+      { path: 'post', component: PostListComponent, canActivate: [LoggedinGuard] },
+      { path: 'post/new', component: PostFormComponent, canActivate: [LoggedinGuard] },
+      { path: 'post/:id', component: PostFormComponent, canActivate: [LoggedinGuard] },
+      { path: 'user', component: UserListComponent, canActivate: [LoggedinGuard] },
       { path: '**', redirectTo: '/account/login' }
     ]),
     BrowserAnimationsModule,
@@ -85,7 +112,7 @@ import { environment } from '../environments/environment';
   providers: [
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6Lc0V8oUAAAAAFy10s-Ubp106Fp40tijOxZnViug' },
   ],
-  entryComponents: [TicketAddComponent, WalletAddComponent, MessageAddComponent, BugFormComponent, BugInfoComponent, VerifyPhoneComponent, ConfirmComponent],
+  entryComponents: [TicketAddComponent, MessageAddComponent, FaqFormComponent, ProjectFormComponent, InternetFormComponent, UserFormComponent, BugFormComponent, BugInfoComponent, VerifyPhoneComponent, ConfirmComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

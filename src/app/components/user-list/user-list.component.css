@@ -1,0 +1,11 @@
+span.verified {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 5px 10px;
+    border-radius: .2rem;
+}
+
+span.verified.yes {
+    background-color: #e0f2f1;
+    color: #004d40;
+}

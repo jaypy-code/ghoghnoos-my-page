@@ -1,0 +1,13 @@
+div.form {
+    margin-top: 50px;
+}
+mat-form-field{
+    width: 30%;
+    min-width: 200px;
+    margin: 0 5px;
+}
+input[type='url']{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: ltr;
+    text-align: left;
+}

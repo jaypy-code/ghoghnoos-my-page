@@ -1,0 +1,31 @@
+<header>
+    <button mat-button (click)="close()">
+        <mat-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                <path
+                    d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z" />
+            </svg></mat-icon>
+        <span>بستن (ESC)</span>
+    </button>
+</header>
+<div class="flex column">
+    <br>
+    <mat-form-field appearance="fill">
+        <mat-label>آدرس ایمیل</mat-label>
+        <input matInput type="email" [(ngModel)]="email" [disabled]="loading" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>رمز عبور</mat-label>
+        <input matInput type="password" [(ngModel)]="password" [disabled]="loading" autocomplete="off">
+        <mat-hint>اگر این ایمیل ثبت شده باشد رمزعبور تغییر نمی یابد.</mat-hint>
+    </mat-form-field>
+    <mat-form-field style="margin-top: 15px;" appearance="fill">
+        <mat-label>دسترسی</mat-label>
+        <mat-select [(ngModel)]="permission">
+            <mat-option *ngFor="let item of permissions" [value]="item['value']"> {{item['name']}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div class="flex nowrap">
+        <button mat-raised-button color="accent" style="margin-right: auto;" [disabled]="loading"
+            (click)="submit()">افزودن مدیر</button>
+    </div>
+</div>
